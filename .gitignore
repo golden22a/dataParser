@@ -1,4 +1,5 @@
-**/*.txt
+*.txt
 .idea/
 **/*.iml
 out/
+!/src/dataFiles/**
