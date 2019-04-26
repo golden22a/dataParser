@@ -3,11 +3,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.stream.Stream;
 
 public class Main {
     static int i = 0;
-
+   static int fileIndex = 1;
     public static void main(String[] args) {
         // object de type Main
         Main listFiles = new Main();
@@ -98,31 +99,21 @@ public class Main {
         // printf le nom du fichier a qui on vas chercher les valeurs cibler
         System.out.println("file name " + filePath.getFileName());
         // outbjet pour ecrit dans un fichier
+        File file = null;
         FileWriter outFile = null;
         // list chainer qui contains tout les lignes du fichier
         List<String> fileList = Files.readAllLines(filePath);
         // pour chqaue valeur rechercher
+        boolean found = false;
         for (String possible : possibleValues) {
             i++;
-            String name = possible;
-            // cas special pour les noms qui contain un chracter special, parsing
-            // pour pouvoir ecrire dans le disk le nom em question
-            if(possible.equalsIgnoreCase("(b) S_n/n")){
-                name="(b) sn";
-            }else if(possible.equalsIgnoreCase("0      1      2      3      4    >=5   Chi^2")){
-                name="Chi^2";
-            }else if(possible.equalsIgnoreCase("W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2")){
-                name="Chi^2 (2)";
-            }
             // lindex de la ligne
             int index=0;
-            // creer un nouveau fichier avec le nom de la valeur a chercher. si il exist , ajouter dans le meme fichier
-            if(i>13)
-            outFile = new FileWriter(name + ".txt", true);
-            else
-                outFile = new FileWriter(name + ".txt");
+                    // creer un nouveau fichier avec le nom de la valeur a chercher. si il exist , ajouter dans le meme fichier
 
-            // pour chaque ligne
+            file = new File("out "+fileIndex+".txt");
+            outFile = new FileWriter(  file);
+                    // pour chaque ligne
             for (String x : fileList) {
 
                 // seperaer la ligne dependant des espaces
@@ -131,7 +122,9 @@ public class Main {
                 for (String a : splited) {
                     // condition si le mot chercher exist dans la ligne
                     // cas special
+
                     if (a.indexOf(possible) != -1) {
+                        found = true;
                         if(possible.equalsIgnoreCase("W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2")||possible.equalsIgnoreCase("C0   C1   C2   C3   C4   C5   C6    CHI2") || possible.equalsIgnoreCase("0      1      2      3      4    >=5   Chi^2"))
                         {   // prendre la deuxieme ligne a partire de lindex
                             // write to file
@@ -166,7 +159,17 @@ public class Main {
         index++;
             }
             // fermer le fichier
-            outFile.close();
+
+          if(found){
+              System.out.printf("found");
+              fileIndex++;
+              outFile.close();
+              break;
+          }else{
+              System.out.println("delete");
+              outFile.close();
+            file.delete();
+            }
 
         }
     }
