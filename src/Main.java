@@ -135,13 +135,20 @@ public class Main {
                     if (a.indexOf(possible) != -1) {
                         if(possible.equalsIgnoreCase("W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2")||possible.equalsIgnoreCase("C0   C1   C2   C3   C4   C5   C6    CHI2") || possible.equalsIgnoreCase("0      1      2      3      4    >=5   Chi^2"))
                         {   // prendre la deuxieme ligne a partire de lindex
-                            String[] splited1 = fileList.get(index+2).split("\\s");
                             // write to file
-                            if(possible.equalsIgnoreCase("W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2"))
-                                outFile.write(splited1[splited1.length-6] + "\r\n");
+                            if(possible.equalsIgnoreCase("W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2")) {
+                                String[] splited1 ;
+                                for(int i=0;i<=147;i++){
 
-                            else
-                                outFile.write(splited1[splited1.length-1] + "\r\n");
+                                    splited1=fileList.get(index+2+i).split("\\s+");
+                                    outFile.write(splited1[splited1.length-4] + "\r\n");
+
+                                }
+                            }
+                            else {
+                                String[] splited1 = fileList.get(index+2).split("\\s");
+                                outFile.write(splited1[splited1.length - 1] + "\r\n");
+                            }
                             // cas geenral
                         }else {
 
