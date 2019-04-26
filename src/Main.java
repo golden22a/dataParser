@@ -93,7 +93,6 @@ public class Main {
                 "(b) V_n_obs (Total # of runs)",
                 "(f) Del_1",
                 "(g) Del_2",
-                "(i) discarded",
                 "(d) sum",
                 "W[1] W[2] W[3] W[4] W[5] W[6] W[7] W[8]   Chi^2"};
         // printf le nom du fichier a qui on vas chercher les valeurs cibler
@@ -118,7 +117,7 @@ public class Main {
             // lindex de la ligne
             int index=0;
             // creer un nouveau fichier avec le nom de la valeur a chercher. si il exist , ajouter dans le meme fichier
-            if(i>14)
+            if(i>13)
             outFile = new FileWriter(name + ".txt", true);
             else
                 outFile = new FileWriter(name + ".txt");
