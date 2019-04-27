@@ -113,7 +113,10 @@ public class Main {
 
             file = new File("out "+fileIndex+".txt");
             outFile = new FileWriter(  file);
-                    // pour chaque ligne
+            outFile.write(possible + "\r\n");
+            outFile.write("----------------------------------------------------------------------\r\n");
+            outFile.write("\r\n");
+            // pour chaque ligne
             for (String x : fileList) {
 
                 // seperaer la ligne dependant des espaces
